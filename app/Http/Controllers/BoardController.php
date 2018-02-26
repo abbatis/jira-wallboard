@@ -25,6 +25,15 @@ class BoardController extends Controller
         "Done" => [
             "Resolved",
             "Finished"
+        ],
+        "UAT" => [
+            ".*UAT.*"
+        ],
+        "Test" => [
+            ".*Test.*"
+        ],
+        "Code Review" => [
+            ".*Review.*"
         ]
     ];
 
@@ -91,6 +100,9 @@ class BoardController extends Controller
     {
         foreach ($this->issueStatusMap as $mapKey => $mapValue) {
             if (in_array($status, $mapValue)) return $mapKey;
+            foreach ($mapValue as $mapValueValue) {
+                if (preg_match('/'.$mapValueValue.'/i', $status)) return $mapKey;
+            }
         }
         return $status;
     }
