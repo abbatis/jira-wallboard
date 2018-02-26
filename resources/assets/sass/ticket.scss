@@ -21,13 +21,13 @@
   position: relative;
 
   &:nth-child(n+2) {
-
+    margin-top: -4.7vw;
   }
 
-  $max_elements: 4;
+  $max_elements: 15;
   @for $i from 1 to $max_elements {
     &:nth-child(#{$i}) {
-      margin-top: -4.7vw;
+
       margin-left: ($i - 1) * 7px;
       margin-right: -($i - 1) * 7px;
     }
