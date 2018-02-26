@@ -1,0 +1,50 @@
+.story {
+  height: 100%;
+  background-color: $dark-green;
+  border-radius: $border-radius;
+  box-shadow: 0 1px 2px 0 rgba(9, 30, 66, 0.25);
+  padding: 5px;
+  text-align: left;
+
+  &-name {
+    color: white;
+    font-size: 1.2em;
+  }
+}
+
+.subtask {
+  background-color: white;
+  border-radius: $border-radius;
+  box-shadow: 0 1px 2px 0 rgba(9, 30, 66, 0.25);
+  height: 6vw;
+  padding: 2px;
+  position: relative;
+
+  &:nth-child(n+2) {
+
+  }
+
+  $max_elements: 4;
+  @for $i from 1 to $max_elements {
+    &:nth-child(#{$i}) {
+      margin-top: -4.7vw;
+      margin-left: ($i - 1) * 7px;
+      margin-right: -($i - 1) * 7px;
+    }
+  }
+
+  &:hover {
+    z-index: 9999;
+    background-color: rgb(233, 255, 250);
+  }
+
+  &-name {
+    border-radius: $border-radius;
+    display: block;
+    color: white;
+    padding: 1px;
+    font-weight: bold;
+    font-size: 0.8em;
+    background-color: $dark-green;
+  }
+}

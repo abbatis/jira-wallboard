@@ -1,0 +1,16 @@
+.status {
+  display: flex;
+
+  &-column {
+    flex-grow: 1;
+    flex-basis: 0;
+    margin: 1%;
+
+    &--header {
+      background-color: $lightgray;
+      padding: 5px;
+      border-radius: $border-radius;
+      text-transform: uppercase;
+    }
+  }
+}
