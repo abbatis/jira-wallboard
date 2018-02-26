@@ -15,10 +15,7 @@ Route::get('/', function () {
     return redirect('/home');
 });
 
-Auth::routes();
+Route::get('/board/{vue_capture?}', 'BoardController@index')->where('vue_capture', '[\/\w\.-]*')->name('vue');
 
 Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/board/{vue_capture?}', function () {
-    return view('vue.app');
-})->where('vue_capture', '[\/\w\.-]*')->name('vue');
+Auth::routes();
