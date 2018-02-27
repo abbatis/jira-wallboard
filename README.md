@@ -1,20 +1,22 @@
-# README #
-
-This README would normally document whatever steps are necessary to get your application up and running.
-
 ### What is this repository for? ###
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+* Fetch JIRA issues and display them in a wallboard
+* [Learn JIRA Rest](https://developer.atlassian.com/cloud/jira/platform/rest/)
+
+### Main dependencies (included in composer) ###
+* [Laravel > 5.4](https://laravel.com)
+* [VueJS > 2.5](https://vuejs.org)
+* [abbatis/laravel-jira-rest-client](https://github.com/abbatis/laravel-jira-rest-client) (fork of [rjvandoesburg/laravel-jira-rest-client](http://github.com/rjvandoesburg/laravel-jira-rest-client))
 
 ### How do I get set up? ###
 
-* Set up .env file accordingly
-* Run php artisan migrate
-* Run npm build dev
+* Create an empty database
+* Set up `.env` file accordingly (`config/atlassian/jira.php`)
+* Run `composer instal`
+* Run `php artisan migrate`
+* Run `npm build dev`
 
 ### Who do I talk to? ###
 
-* Repo owner or admin
-* Other community or team contact
+* Martijn Rijnja <martijn.r@me.com>
+* Imad Kada <i.kada@me.com>
