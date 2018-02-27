@@ -21,7 +21,8 @@ class BoardController extends Controller
         "ToDo" => [
             "New",
             "Unresolved",
-            ".*ToDo.*"
+            ".*ToDo.*",
+            "To Do"
         ],
         "Done" => [
             "Resolved",
@@ -53,7 +54,7 @@ class BoardController extends Controller
         $firstProject = reset($projectCollection);
 
         $issueCollection = json_decode($issueRequest->search([
-            "jql" => "project=".$this->project ?: $firstProject['id'].' AND sprint="20" AND resolution=Unresolved'
+            "jql" => "project=".$this->project ?: $firstProject['id'].' AND sprint="20"'
         ])->getBody(), true)['issues'];
         $jiraCollection = [
             "projectCollection" => [],
@@ -115,7 +116,7 @@ class BoardController extends Controller
     private function transformStatus (string $status)
     {
         foreach ($this->issueStatusMap as $mapKey => $mapValue) {
-            if (in_array($status, $mapValue)) return $mapKey;
+            if (in_array($status, $mapValue) || $status == $mapKey) return $mapKey;
             foreach ($mapValue as $mapValueValue) {
                 if (preg_match('/'.$mapValueValue.'/i', $status)) return $mapKey;
             }
