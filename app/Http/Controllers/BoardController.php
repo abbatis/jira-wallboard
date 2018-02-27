@@ -20,7 +20,8 @@ class BoardController extends Controller
     private $issueStatusMap = [
         "ToDo" => [
             "New",
-            "Unresolved"
+            "Unresolved",
+            ".*ToDo.*"
         ],
         "Done" => [
             "Resolved",
