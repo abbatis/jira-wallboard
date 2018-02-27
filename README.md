@@ -12,7 +12,7 @@
 
 * Create an empty database
 * Set up `.env` file accordingly (`config/atlassian/jira.php`)
-* Run `composer instal`
+* Run `composer install`
 * Run `php artisan migrate`
 * Run `npm build dev`
 
