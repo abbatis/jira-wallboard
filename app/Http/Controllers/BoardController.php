@@ -55,7 +55,6 @@ class BoardController extends Controller
         $issueCollection = json_decode($issueRequest->search([
             "jql" => "project=".$this->project ?: $firstProject['id'].' AND sprint="20" AND resolution=Unresolved'
         ])->getBody(), true)['issues'];
-
         $jiraCollection = [
             "projectCollection" => [],
             "issueCollection"   => $this->transformIssues($issueCollection)
@@ -74,22 +73,38 @@ class BoardController extends Controller
     private function transformIssues(array $issueCollection, $result = [])
     {
         foreach ($issueCollection as $issueKey => $issueValue) {
-            $fields = $issueValue['fields'];
-            $newField = [
-                "name"      => $fields['summary'],
-                "status"    => $this->transformStatus($fields['status']['name']),
-                "id"        => $issueValue['id'],
-                "key"       => $issueValue['key'],
-                "assignee"  => $fields['assignee'],
-                "subTasks"  => $fields['subtasks'],
-                "reporter"  => $fields['reporter']
-            ];
-
-            if (empty($newField['subTasks'])) $newField['subTasks'][] = $newField;
-
-            $result[] = $newField;
+            if (isSet($issueValue['fields']['parent'])) {
+                $subtask = $issueValue;
+                $parent = $issueValue['fields']['parent'];
+                if (!isSet($result[$parent['id']])) {
+                    $result[$parent['id']] = $this->beautifyIssue($parent);
+                }
+                $result[$parent['id']]['subTasks'][] = $this->beautifyIssue($subtask);
+            } else {
+                $result[$issueValue['id']] = $this->beautifyIssue($issueValue);
+                $result[$issueValue['id']]['subTasks'] = [$this->beautifyIssue($issueValue)];
+            }
         }
         return $result;
+    }
+
+    /**
+     * @param $issueValue
+     *
+     * @return array
+     */
+    private function beautifyIssue($issueValue)
+    {
+        $fields = $issueValue['fields'];
+        return [
+            "name"      => $fields['summary'],
+            "status"    => $this->transformStatus($fields['status']['name']),
+            "id"        => $issueValue['id'],
+            "key"       => $issueValue['key'],
+            "assignee"  => $fields['assignee'] ?? "None",
+            "subTasks"  => $fields['subtasks'] ?? [],
+            "reporter"  => $fields['reporter'] ?? []
+        ];
     }
 
     /**
