@@ -51,7 +51,10 @@ class BoardController extends Controller
         $issueRequest = new IssueRequest();
 
         $projectCollection = $projectRequest->all();
-        $firstProject = reset($projectCollection);
+
+        if (is_array($projectCollection)) {
+            $firstProject = reset($projectCollection);
+        }
 
         $issueCollection = json_decode($issueRequest->search([
             "jql" => "project=".$this->project ?: $firstProject['id'].' AND sprint="20"'
