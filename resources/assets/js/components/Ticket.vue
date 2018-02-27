@@ -1,6 +1,6 @@
 <template>
     <div class="subtask">
-        <span class="subtask-name">{{ subtask.name }}</span>
+        <span class="subtask-name"><span style="text-decoration: underline;">{{ subtask.key }}</span> {{ subtask.name }}</span>
         <span class="subtask-image" v-if="subtask.assignee && subtask.assignee.avatarUrls">
             <img :src="subtask.assignee.avatarUrls['48x48']" />
         </span>
