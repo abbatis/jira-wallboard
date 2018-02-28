@@ -1,6 +1,6 @@
 .story {
   height: 100%;
-  background-color: $dark-green;
+  background-color: $lightgray;
   border-radius: $border-radius;
   box-shadow: 0 1px 2px 0 rgba(9, 30, 66, 0.25);
   padding: 5px;
@@ -14,19 +14,22 @@
 }
 
 .subtask {
-  background-color: #566568;
-  color: #242424;
+  background-image: url('../images/task-bg.jpg');
+  background-position: center;
+  background-size: cover;
+  color: #fff;
+  text-align: left;
   border-radius: $border-radius;
-  box-shadow: 0 1px 2px 0 rgba(9, 30, 66, 0.25);
-  border-left: 1px solid #fff;
-  border-top: 1px solid #d3d3d3;
-  min-height: 6vw;
+  box-shadow: 0px 0px 42px 3px rgba(0,0,0,0.11);
+  height: 5vw;
   cursor: pointer;
-  padding: 2px;
+  padding: 0 10px;
+  overflow: hidden;
+  box-sizing: content-box;
   position: relative;
 
   &:nth-child(n+2) {
-    margin-top: -4.7vw;
+    margin-top: -3.7vw;
   }
 
   $max_elements: 15;
@@ -40,23 +43,31 @@
 
   &:hover {
     z-index: 9999;
-    background-color: rgb(233, 255, 250);
+    box-shadow: 0 0 0 1px $green-light;
   }
 
   &-name {
-    border-radius: $border-radius;
+    height: 100%;
+    padding-bottom: 10px;
+    line-height: 1.4rem;
+  }
+
+  &-key {
     display: block;
-    color: white;
-    padding: 1px;
-    font-weight: bold;
-    font-size: 0.8em;
-    background-color: $dark-green;
-    margin-bottom: 10px;
+    color: $green-light;
+    font-weight: 500;
+    font-size: 0.9em;
   }
 
   &-image {
+    position: absolute;
+    right: 5px;
+    top: 3px;
+    width: 20px;
+
     img {
       border-radius: 50%;
+      width: 100%;
     }
   }
 }
