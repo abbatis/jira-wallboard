@@ -26,7 +26,8 @@ class BoardController extends Controller
         ],
         "Done" => [
             "Resolved",
-            "Finished"
+            "Finished",
+            "Closed"
         ],
         "UAT" => [
             ".*UAT.*"
@@ -57,8 +58,10 @@ class BoardController extends Controller
         }
 
         $issueCollection = json_decode($issueRequest->search([
-            "jql" => "project=".$this->project ?: $firstProject['id'].' AND sprint="20"'
+            "jql" => "project=".$this->project ?: $firstProject['id'].' AND sprint="20"',
+            "maxResults" => 200
         ])->getBody(), true)['issues'];
+
         $jiraCollection = [
             "projectCollection" => [],
             "issueCollection"   => $this->transformIssues($issueCollection)
@@ -119,7 +122,8 @@ class BoardController extends Controller
     private function transformStatus (string $status)
     {
         foreach ($this->issueStatusMap as $mapKey => $mapValue) {
-            if (in_array($status, $mapValue) || $status == $mapKey) return $mapKey;
+            if (preg_grep('/'.$status.'/i', $mapValue)
+                || strtolower($status) == strtolower($mapKey)) return $mapKey;
             foreach ($mapValue as $mapValueValue) {
                 if (preg_match('/'.$mapValueValue.'/i', $status)) return $mapKey;
             }
