@@ -1,12 +1,16 @@
 <template>
     <div class="subtask">
-        <span class="subtask-key">{{ subtask.key }}</span>
+        <span class="subtask-key">
+            <a :href="subtask.url" target="_blank">{{ subtask.key }}</a>
+        </span>
         <span class="subtask-name">{{ subtask.name }}</span>
 
         <span class="subtask-image" v-if="subtask.assignee && subtask.assignee.avatarUrls">
             <img :src="subtask.assignee.avatarUrls['48x48']" />
         </span>
-        <span class="subtask-image" v-if="!subtask.assignee || !subtask.assignee.avatarUrls">
+        <span class="subtask-image"
+              v-if="!subtask.assignee
+              || !subtask.assignee.avatarUrls">
             <img :src="subtask.reporter.avatarUrls['48x48']" />
         </span>
 

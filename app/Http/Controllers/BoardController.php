@@ -80,6 +80,7 @@ class BoardController extends Controller
     private function transformIssues(array $issueCollection, $result = [])
     {
         foreach ($issueCollection as $issueKey => $issueValue) {
+            if (isSet($issueValue['fields']['assignee'])) continue;
             if (isSet($issueValue['fields']['parent'])) {
                 $subtask = $issueValue;
                 $parent = $issueValue['fields']['parent'];
@@ -110,7 +111,9 @@ class BoardController extends Controller
             "key"       => $issueValue['key'],
             "assignee"  => $fields['assignee'] ?? "None",
             "subTasks"  => $fields['subtasks'] ?? [],
-            "reporter"  => $fields['reporter'] ?? []
+            "reporter"  => $fields['reporter'] ?? [],
+            "description" => $fields['description'] ?? "",
+            "url"       => env('JIRA_HOST')."/browse/".$issueValue['key'] ?? ""
         ];
     }
 
